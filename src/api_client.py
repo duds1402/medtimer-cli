@@ -19,3 +19,4 @@ def buscar_info_medicamento(nome: str) -> dict | None:
         return {"nome": nome_encontrado, "advertencias": advertencias}
     except (requests.RequestException, KeyError, IndexError):
         return None
+
