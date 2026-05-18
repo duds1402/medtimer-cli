@@ -1,4 +1,3 @@
-import pytest
 import requests
 from unittest.mock import patch, MagicMock
 from api_client import buscar_info_medicamento
@@ -25,7 +24,10 @@ class TestIntegracaoOpenFDA:
         assert "dose" in resultado["advertencias"]
 
     def test_retorna_none_quando_api_falha(self):
-        with patch("api_client.requests.get", side_effect=requests.RequestException):
+        with patch(
+            "api_client.requests.get",
+            side_effect=requests.RequestException
+        ):
             resultado = buscar_info_medicamento("Qualquer")
 
         assert resultado is None

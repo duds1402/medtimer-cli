@@ -10,9 +10,12 @@ def buscar_info_medicamento(nome: str) -> dict | None:
         response.raise_for_status()
         dados = response.json()
         resultado = dados["results"][0]
-        return {
-            "nome": resultado.get("openfda", {}).get("brand_name", [nome])[0],
-            "advertencias": resultado.get("warnings", ["Sem advertências disponíveis."])[0][:300],
-        }
+        nome_encontrado = resultado.get(
+            "openfda", {}
+        ).get("brand_name", [nome])[0]
+        advertencias = resultado.get(
+            "warnings", ["Sem advertencias disponiveis."]
+        )[0][:300]
+        return {"nome": nome_encontrado, "advertencias": advertencias}
     except (requests.RequestException, KeyError, IndexError):
         return None
